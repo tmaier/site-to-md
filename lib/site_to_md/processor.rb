@@ -9,7 +9,7 @@ module SiteToMd
 
       @source_directory = source_directory
       @output_file = output_file
-      @markdown_converter = MarkdownConverter.new
+      @html_converter = HTMLConverter.new
     end
 
     def process
@@ -34,7 +34,7 @@ module SiteToMd
     end
 
     def convert_file(file)
-      document = DocumentConverter.new(file, @source_directory, @markdown_converter)
+      document = DocumentConverter.new(file, @source_directory, @html_converter)
       document.convert
     rescue StandardError => e
       warn "Error processing #{file}: #{e.message}"

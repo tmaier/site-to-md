@@ -2,9 +2,9 @@
 
 require 'test_helper'
 
-class MarkdownConverterTest < Minitest::Test
+class HTMLConverterTest < Minitest::Test
   def setup
-    @converter = SiteToMd::MarkdownConverter.new
+    @converter = SiteToMd::HTMLConverter.new
   end
 
   def test_converts_basic_html

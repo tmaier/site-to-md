@@ -7,7 +7,7 @@ class DocumentConverterTest < Minitest::Test
 
   def setup
     @sample_site = fixture_path('sample_site')
-    @markdown_converter = SiteToMd::MarkdownConverter.new
+    @markdown_converter = SiteToMd::HTMLConverter.new
   end
 
   def test_converts_document_with_main_tag # rubocop:disable Minitest/MultipleAssertions

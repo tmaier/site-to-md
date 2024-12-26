@@ -5,10 +5,10 @@ require 'nokogiri'
 module SiteToMd
   # DocumentConverter is responsible for converting individual HTML documents to markdown format.
   class DocumentConverter
-    def initialize(file_path, base_directory, markdown_converter)
+    def initialize(file_path, base_directory, html_converter)
       @file_path = file_path
       @base_directory = base_directory
-      @markdown_converter = markdown_converter
+      @html_converter = html_converter
     end
 
     def convert
@@ -36,7 +36,7 @@ module SiteToMd
     end
 
     def markdown_content
-      @markdown_content ||= @markdown_converter.convert(content_element.to_html)
+      @markdown_content ||= @html_converter.convert(content_element.to_html)
     end
 
     def format_document

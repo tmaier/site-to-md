@@ -3,8 +3,8 @@
 require 'reverse_markdown'
 
 module SiteToMd
-  # MarkdownConverter uses ReverseMarkdown to convert HTML to markdown.
-  class MarkdownConverter
+  # HTMLConverter uses ReverseMarkdown to convert HTML to markdown.
+  class HTMLConverter
     def initialize
       @config = {
         unknown_tags: :bypass,

@@ -3,13 +3,14 @@
 module SiteToMd
   # Processor collects HTML files and converts them using FileConverter.
   class Processor
+    CONVERTERS = { '.html' => HTMLConverter.new }.freeze
+
     def initialize(source_directory, output_file = 'site_content.md')
       raise InvalidSourceDirectoryError if source_directory.nil? || source_directory.empty?
       raise InvalidSourceDirectoryError unless Dir.exist?(source_directory)
 
       @source_directory = source_directory
       @output_file = output_file
-      @converters = { '.html' => HTMLConverter.new }
     end
 
     def process
@@ -23,7 +24,7 @@ module SiteToMd
     private
 
     def collect_files
-      extensions_pattern = @converters.keys.map { |ext| ext.delete_prefix('.') }.join(',')
+      extensions_pattern = CONVERTERS.keys.map { |ext| ext.delete_prefix('.') }.join(',')
       Dir.glob(File.join(@source_directory, '**', "*.{#{extensions_pattern}}"))
     end
 
@@ -36,7 +37,7 @@ module SiteToMd
 
     def convert_file(file)
       extension = File.extname(file)
-      converter = @converters.fetch(extension) { raise SiteToMd::UnsupportedFileTypeError, file }
+      converter = CONVERTERS.fetch(extension) { raise SiteToMd::UnsupportedFileTypeError, file }
       document = FileConverter.new(file, @source_directory, converter)
       document.convert
     rescue SiteToMd::UnsupportedFileTypeError

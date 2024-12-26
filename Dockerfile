@@ -1,4 +1,4 @@
-FROM ruby:3.3-alpine3.21 AS builder
+FROM ruby:3.4-alpine3.21 AS builder
 
 RUN apk add --no-cache \
   build-base \
@@ -10,7 +10,7 @@ COPY . /app/
 
 RUN gem build site-to-md.gemspec
 
-FROM ruby:3.3-alpine3.21
+FROM ruby:3.4-alpine3.21
 
 WORKDIR /app
 

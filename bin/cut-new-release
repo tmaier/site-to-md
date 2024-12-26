@@ -1,0 +1,66 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'date'
+
+# Validate command line arguments
+unless ARGV[0] && %w[major minor patch].include?(ARGV[0])
+  puts 'Invalid or missing argument.'
+  puts 'Usage: bin/cut-new-release {major|minor|patch}'
+  exit 1
+end
+
+# Ensure we are on the main branch
+current_branch = `git rev-parse --abbrev-ref HEAD`.strip
+unless current_branch == 'main'
+  puts 'You are not on the main branch.'
+  exit 1
+end
+
+# Run tests and only proceed if they pass
+unless system('bin/rake')
+  puts 'Tests failed. Aborting release.'
+  exit 1
+end
+
+# Extract the current version number from version.rb
+version_file_path = 'lib/site_to_md/version.rb'
+current_version = File.read(version_file_path).match(/VERSION = '([^']+)/)[1]
+
+# Increment the version based on the input
+version_parts = current_version.split('.').map(&:to_i)
+case ARGV[0]
+when 'major'
+  version_parts[0] += 1
+  version_parts[1] = 0
+  version_parts[2] = 0
+when 'minor'
+  version_parts[1] += 1
+  version_parts[2] = 0
+when 'patch'
+  version_parts[2] += 1
+end
+new_version = version_parts.join('.')
+
+# Update version.rb
+File.write(version_file_path, File.read(version_file_path).gsub(current_version, new_version))
+
+# Update CHANGELOG.md
+today = Time.now.localtime.strftime('%Y-%m-%d')
+changelog_content = File.read('CHANGELOG.md')
+new_changelog_content = changelog_content.sub('[Unreleased]', "[Unreleased]\n\n## [#{new_version}] - #{today}")
+
+new_diff_url = "\n[#{new_version}]: https://gitlab.com/Librario/information_extractor/compare/v#{current_version}...v#{new_version}"
+updated_changelog_content = new_changelog_content.sub(/\[unreleased\]: .+/, "\\0#{new_diff_url}")
+File.write('CHANGELOG.md', updated_changelog_content)
+
+# Commit changes
+system("git add #{version_file_path} CHANGELOG.md")
+system("git commit -m 'Bump version to #{new_version}'")
+
+# Create a tag and push
+system("git tag v#{new_version}")
+system('git push origin main')
+system("git push origin v#{new_version}")
+
+puts "Release #{new_version} complete!"

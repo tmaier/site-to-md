@@ -3,16 +3,16 @@
 require 'nokogiri'
 
 module SiteToMd
-  # DocumentConverter is responsible for converting individual HTML documents to markdown format.
-  class DocumentConverter
-    def initialize(file_path, base_directory, html_converter)
+  # FileConverter is responsible for converting individual files to a format based on the given converter.
+  class FileConverter
+    def initialize(file_path, base_directory, converter)
       @file_path = file_path
       @base_directory = base_directory
-      @html_converter = html_converter
+      @converter = converter
     end
 
     def convert
-      return nil if content_element.nil? || markdown_content.strip.empty?
+      return nil if content.nil? || content.strip.empty?
 
       format_document
     end
@@ -35,8 +35,12 @@ module SiteToMd
       @content_element ||= document.at_css('main') || document.at_css('body')
     end
 
-    def markdown_content
-      @markdown_content ||= @html_converter.convert(content_element.to_html)
+    def html_content
+      content_element.to_html
+    end
+
+    def content
+      @content ||= @converter.convert(html_content)
     end
 
     def format_document
@@ -46,7 +50,7 @@ module SiteToMd
         title: #{title}
         ---
 
-        #{markdown_content.strip}
+        #{content.strip}
 
         ================================================================
 

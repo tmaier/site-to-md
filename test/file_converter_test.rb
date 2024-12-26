@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class DocumentConverterTest < Minitest::Test
+class FileConverterTest < Minitest::Test
   include TestHelpers
 
   def setup
@@ -12,7 +12,7 @@ class DocumentConverterTest < Minitest::Test
 
   def test_converts_document_with_main_tag # rubocop:disable Minitest/MultipleAssertions
     file_path = File.join(@sample_site, 'index.html')
-    converter = SiteToMd::DocumentConverter.new(file_path, @sample_site, @markdown_converter)
+    converter = SiteToMd::FileConverter.new(file_path, @sample_site, @markdown_converter)
     result = converter.convert
 
     assert_match(/^---$/, result)
@@ -24,7 +24,7 @@ class DocumentConverterTest < Minitest::Test
 
   def test_converts_document_without_main_tag # rubocop:disable Minitest/MultipleAssertions
     file_path = File.join(@sample_site, 'about.html')
-    converter = SiteToMd::DocumentConverter.new(file_path, @sample_site, @markdown_converter)
+    converter = SiteToMd::FileConverter.new(file_path, @sample_site, @markdown_converter)
     result = converter.convert
 
     assert_match(/^---$/, result)
@@ -39,7 +39,7 @@ class DocumentConverterTest < Minitest::Test
     File.write(temp_file, html)
 
     begin
-      converter = SiteToMd::DocumentConverter.new(temp_file, @sample_site, @markdown_converter)
+      converter = SiteToMd::FileConverter.new(temp_file, @sample_site, @markdown_converter)
       result = converter.convert
 
       assert_match(/^title: Untitled$/, result)

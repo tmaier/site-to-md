@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SiteToMd
-  # Processor collects HTML files and converts them using DocumentConverter.
+  # Processor collects HTML files and converts them using FileConverter.
   class Processor
     def initialize(source_directory, output_file = 'site_content.md')
       raise ArgumentError, 'Source directory is required' if source_directory.nil? || source_directory.empty?
@@ -9,12 +9,12 @@ module SiteToMd
 
       @source_directory = source_directory
       @output_file = output_file
-      @html_converter = HTMLConverter.new
+      @converters = { '.html' => HTMLConverter.new }
     end
 
     def process
-      files = collect_html_files
-      raise Error, 'No HTML files found' if files.empty?
+      files = collect_files
+      raise Error, 'No files found' if files.empty?
 
       content = convert_files(files)
       write_output(content)
@@ -22,8 +22,9 @@ module SiteToMd
 
     private
 
-    def collect_html_files
-      Dir.glob(File.join(@source_directory, '**', '*.html'))
+    def collect_files
+      extensions_pattern = @converters.keys.map { |ext| ext.delete_prefix('.') }.join(',')
+      Dir.glob(File.join(@source_directory, '**', "*.{#{extensions_pattern}}"))
     end
 
     def convert_files(files)
@@ -34,8 +35,12 @@ module SiteToMd
     end
 
     def convert_file(file)
-      document = DocumentConverter.new(file, @source_directory, @html_converter)
+      extension = File.extname(file)
+      converter = @converters.fetch(extension) { raise SiteToMd::UnsupportedFileTypeError, file }
+      document = FileConverter.new(file, @source_directory, converter)
       document.convert
+    rescue SiteToMd::UnsupportedFileTypeError
+      raise
     rescue StandardError => e
       warn "Error processing #{file}: #{e.message}"
       nil

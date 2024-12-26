@@ -22,6 +22,19 @@ class ProcessorTest < Minitest::Test
     end
   end
 
+  def test_raises_error_for_unsupported_extension
+    unsupported_file = File.join(@sample_site, 'unsupported.foobar')
+    File.write(unsupported_file, 'This is test content.')
+
+    begin
+      assert_raises(SiteToMd::UnsupportedFileTypeError) do
+        @processor.send(:convert_file, unsupported_file)
+      end
+    ensure
+      FileUtils.rm_f(unsupported_file)
+    end
+  end
+
   def test_processes_html_files # rubocop:disable Minitest/MultipleAssertions
     @processor.process
 

@@ -1,4 +1,4 @@
-name: Docker Publish
+name: Publish Docker
 
 on:
   workflow_run:
@@ -6,7 +6,8 @@ on:
     types:
       - completed
     branches: ["main"]
-
+  release:
+    types: [published]
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -14,7 +15,6 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
       contents: read
       packages: write
@@ -37,6 +37,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=v${{ github.event.release.tag_name }},enable={{is_tag}}
             type=sha,prefix={{branch}}-
             type=ref,event=branch
             type=ref,event=tag

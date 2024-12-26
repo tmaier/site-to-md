@@ -4,8 +4,8 @@ module SiteToMd
   # Processor collects HTML files and converts them using FileConverter.
   class Processor
     def initialize(source_directory, output_file = 'site_content.md')
-      raise ArgumentError, 'Source directory is required' if source_directory.nil? || source_directory.empty?
-      raise ArgumentError, 'Directory does not exist' unless Dir.exist?(source_directory)
+      raise InvalidSourceDirectoryError if source_directory.nil? || source_directory.empty?
+      raise InvalidSourceDirectoryError unless Dir.exist?(source_directory)
 
       @source_directory = source_directory
       @output_file = output_file
@@ -14,7 +14,7 @@ module SiteToMd
 
     def process
       files = collect_files
-      raise Error, 'No files found' if files.empty?
+      raise NoFilesFoundError if files.empty?
 
       content = convert_files(files)
       write_output(content)

@@ -8,6 +8,7 @@ on:
     branches: ["main"]
   release:
     types: [published]
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -37,10 +38,9 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
-            type=raw,value=v${{ github.event.release.tag_name }},enable={{is_tag}}
+            type=ref,event=tag
             type=sha,prefix={{branch}}-
             type=ref,event=branch
-            type=ref,event=tag
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3

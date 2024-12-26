@@ -10,11 +10,11 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
 
   spec.summary       = 'Convert static site HTML to a single markdown file'
   spec.description = <<~DESC
-  A tool that extracts and combines text from HTML files into a single, streamlined markdown document.
-  It provides a command-line interface for easy usage, removes unnecessary HTML elements to reduce
-  token usage, and creates an easily uploadable format for AI tools like Claude AI or ChatGPT.
-  The tool preserves document structure and includes frontmatter metadata.
-DESC
+    A tool that extracts and combines text from HTML files into a single, streamlined markdown document.
+    It provides a command-line interface for easy usage, removes unnecessary HTML elements to reduce
+    token usage, and creates an easily uploadable format for AI tools like Claude AI or ChatGPT.
+    The tool preserves document structure and includes frontmatter metadata.
+  DESC
   spec.homepage = 'https://github.com/tmaier/site-to-md'
   spec.license = 'MIT'
 

@@ -1,0 +1,27 @@
+# Ignore version control
+.git
+.gitignore
+
+# Ignore test-related files and directories
+test/
+
+# Ignore confenience scripts
+bin/
+Rakefile
+
+# Ignore dependency management files that are not needed
+Gemfile
+Gemfile.lock
+
+# Ignore various development environment settings
+.devcontainer/
+.github/
+.ruby-lsp/
+
+# Ignore docker-related files
+.dockerignore
+Dockerfile
+
+# Ignore editor configuration (if not needed in the build)
+.editorconfig
+.rubocop.yml

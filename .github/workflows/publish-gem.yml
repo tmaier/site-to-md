@@ -58,7 +58,6 @@ jobs:
   publish-to-rubygems:
     runs-on: ubuntu-latest
     needs: build-gem
-    if: ${{ secrets.RUBYGEMS_API_KEY != '' }}
     environment: production
     steps:
       - name: Set up Ruby

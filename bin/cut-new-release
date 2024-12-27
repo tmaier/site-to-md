@@ -56,8 +56,8 @@ today = Time.now.localtime.strftime('%Y-%m-%d')
 changelog_content = File.read('CHANGELOG.md')
 new_changelog_content = changelog_content.sub('[Unreleased]', "[Unreleased]\n\n## [#{new_version}] - #{today}")
 
-new_diff_url = "\n[#{new_version}]: https://gitlab.com/Librario/information_extractor/compare/v#{current_version}...v#{new_version}"
-updated_changelog_content = new_changelog_content.sub(/\[unreleased\]: .+/, "\\0#{new_diff_url}")
+new_diff_url = "\n[#{new_version}]: https://github.com/tmaier/site-to-md/compare/v#{current_version}...v#{new_version}"
+updated_changelog_content = "#{new_changelog_content}#{new_diff_url}\n"
 File.write('CHANGELOG.md', updated_changelog_content)
 
 # Update Gemfile.lock

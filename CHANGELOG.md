@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.1] - 2024-12-27
 
-## [1.0.0] - 2024-12-26
+## 1.0.0 - 2024-12-26
 
 ### Added
 
@@ -22,3 +22,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Continuous Integration (CI) setup using GitHub Actions
 - Dockerfile to make the CLI tool available as a Docker image (useful for CI)
 - Dependabot configuration for automated dependency updates
+
+[1.0.1]: https://github.com/tmaier/site-to-md/compare/v1.0.0...v1.0.1

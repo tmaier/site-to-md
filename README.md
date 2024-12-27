@@ -162,6 +162,21 @@ Dependabot creates pull requests to update:
 - GitHub Actions (weekly)
 - Dockerfile (weekly)
 
+### Release Process
+
+To create a new release, run `bin/cut-new-release {major|minor|patch}`.
+Follow semantic versioning guidelines and ensure the [CHANGELOG](CHANGELOG.md) is up to date with the latest changes.
+
+`bin/cut-new-release` will:
+
+- Ensure some basic checks pass (e.g., right branch, clean working directory, tests pass)
+- Update the version number
+- Update the [CHANGELOG](CHANGELOG.md) with the new version number and release date
+- Commit the changes and create the new tag
+- Push the changes to GitHub
+
+You need to create a new release manually on GitHub and update it with the content of the [CHANGELOG](CHANGELOG.md).
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at <https://github.com/tmaier/site-to-md>.

@@ -31,6 +31,7 @@ jobs:
   publish-to-github:
     runs-on: ubuntu-latest
     needs: build-gem
+    environment: production
     steps:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -58,6 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-gem
     if: ${{ secrets.RUBYGEMS_API_KEY != '' }}
+    environment: production
     steps:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1

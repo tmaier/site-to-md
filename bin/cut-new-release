@@ -17,6 +17,12 @@ unless current_branch == 'main'
   exit 1
 end
 
+# Ensure the working directory is clean
+unless system('git diff-index --quiet HEAD --')
+  puts 'Uncommitted changes are present. Please commit or stash your changes.'
+  exit 1
+end
+
 # Run tests and only proceed if they pass
 unless system('bin/rake')
   puts 'Tests failed. Aborting release.'

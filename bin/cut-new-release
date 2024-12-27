@@ -54,8 +54,11 @@ new_diff_url = "\n[#{new_version}]: https://gitlab.com/Librario/information_extr
 updated_changelog_content = new_changelog_content.sub(/\[unreleased\]: .+/, "\\0#{new_diff_url}")
 File.write('CHANGELOG.md', updated_changelog_content)
 
+# Update Gemfile.lock
+system('bundle install')
+
 # Commit changes
-system("git add #{version_file_path} CHANGELOG.md")
+system("git add #{version_file_path} CHANGELOG.md Gemfile.lock")
 system("git commit -m 'Bump version to #{new_version}'")
 
 # Create a tag and push

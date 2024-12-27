@@ -45,7 +45,7 @@ jobs:
         with:
           name: built-gem
 
-      - name: Publish Gem to GitHub Packages
+      - name: Set up GitHub credentials
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
@@ -55,7 +55,12 @@ jobs:
           echo ":github: Bearer $GITHUB_TOKEN" >> $HOME/.gem/credentials
           chmod 0600 $HOME/.gem/credentials
 
+      - name: Push Gem to GitHub Packages
+        run: |
           gem push *.gem --key github --host "https://rubygems.pkg.github.com/$GITHUB_REPOSITORY_OWNER"
+
+      - name: Clean up GitHub credentials
+        run: |
           rm $HOME/.gem/credentials
 
   publish-to-rubygems:
@@ -73,7 +78,7 @@ jobs:
         with:
           name: built-gem
 
-      - name: Publish Gem to RubyGems
+      - name: Set up RubyGems credentials
         env:
           API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
         run: |
@@ -82,5 +87,10 @@ jobs:
           echo ":rubygems_api_key: $API_KEY" >> $HOME/.gem/credentials
           chmod 0600 $HOME/.gem/credentials
 
+      - name: Push Gem to RubyGems
+        run: |
           gem push *.gem
+
+      - name: Clean up RubyGems credentials
+        run: |
           rm $HOME/.gem/credentials

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    site-to-md (0.1.0)
+    site-to-md (1.0.0)
       nokogiri (~> 1.18)
       reverse_markdown (~> 3.0)
       thor (~> 1.3)

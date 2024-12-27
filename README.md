@@ -1,8 +1,7 @@
 # site-to-md
 
 [![Gem Version](https://badge.fury.io/rb/site-to-md.svg)](https://badge.fury.io/rb/site-to-md)
-[![Tests](https://github.com/tmaier/site-to-md/workflows/Tests/badge.svg)](https://github.com/tmaier/site-to-md/actions?query=workflow%3ATests)
-[![RuboCop](https://github.com/tmaier/site-to-md/workflows/RuboCop/badge.svg)](https://github.com/tmaier/site-to-md/actions?query=workflow%3ARuboCop)
+[![Tests](https://github.com/tmaier/site-to-md/actions/workflows/ci.yml/badge.svg)](https://github.com/tmaier/site-to-md/actions/workflows/ci.yml?query=branch%3Amain)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
 
 This command-line tool aggregates content from HTML pages into a single, streamlined markdown file.

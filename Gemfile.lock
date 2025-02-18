@@ -78,7 +78,7 @@ PLATFORMS
 DEPENDENCIES
   minitest (~> 5.25)
   rake (~> 13.2)
-  rubocop (~> 1.71)
+  rubocop (~> 1.72)
   rubocop-minitest (~> 0.36)
   rubocop-rake (~> 0.7)
   site-to-md!

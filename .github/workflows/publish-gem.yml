@@ -23,7 +23,7 @@ jobs:
           echo "::set-output name=gem_file::$(ls *.gem)"
 
       - name: Upload Gem as Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: built-gem
           path: ${{ steps.build.outputs.gem_file }}

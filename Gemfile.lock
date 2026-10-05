@@ -41,7 +41,7 @@ GEM
     racc (1.8.1)
     rainbow (3.1.1)
     rake (13.4.2)
-    regexp_parser (2.12.0)
+    regexp_parser (2.13.1)
     reverse_markdown (3.0.2)
       nokogiri
     rubocop (1.89.0)
@@ -58,18 +58,18 @@ GEM
     rubocop-ast (1.50.0)
       parser (>= 3.3.7.2)
       prism (~> 1.7)
-    rubocop-minitest (0.40.0)
+    rubocop-minitest (0.41.0)
       lint_roller (~> 1.1)
-      rubocop (>= 1.75.0, < 2.0)
+      rubocop (>= 1.89.0, < 2.0)
       rubocop-ast (>= 1.38.0, < 2.0)
     rubocop-rake (0.7.1)
       lint_roller (~> 1.1)
       rubocop (>= 1.72.1)
     ruby-progressbar (1.13.0)
     thor (1.5.0)
-    unicode-display_width (3.2.0)
-      unicode-emoji (~> 4.1)
-    unicode-emoji (4.2.0)
+    unicode-display_width (3.3.0)
+      unicode-emoji (~> 4.3)
+    unicode-emoji (4.3.0)
 
 PLATFORMS
   aarch64-linux-gnu
@@ -85,7 +85,7 @@ DEPENDENCIES
   minitest (~> 6.0)
   rake (~> 13.4)
   rubocop (~> 1.89)
-  rubocop-minitest (~> 0.40)
+  rubocop-minitest (~> 0.41)
   rubocop-rake (~> 0.7)
   site-to-md!
 
